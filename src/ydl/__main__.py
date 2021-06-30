@@ -102,7 +102,7 @@ def main():
         ydl.all_format_wizard()
     elif is_audio_only:
         extension = extension if extension is not None else 'mp3'
-        quality = quality if quality is not None else 1
+        quality = str(quality) if quality is not None else str(1)
         ydl.audio_only_downloads(acodec=extension, quality=quality)
     else:
         ydl.video_download_wizard(extension=extension, selected_format=selected_format)
