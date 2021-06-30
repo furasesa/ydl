@@ -9,6 +9,6 @@ else
 fi
 echo "using python version: "`$pyv -V`
 echo "upgrading latest pip"
-$pyv -m pip install -U pip
+#$pyv -m pip install -U pip
 $pyv -m pip install --use-feature=in-tree-build -v --log build.log .
 

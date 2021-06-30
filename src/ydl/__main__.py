@@ -48,12 +48,12 @@ options:
 
 from docopt import docopt
 import logging.config
+
 from .logging_config import LOG_CONFIG
+from .main import VidDownloader
 
-from .ydl.main import VidDownloader
 
-
-if __name__ == '__main__':
+def main():
     arguments = docopt(__doc__, version='ydl 0.0.2')
     # ydl[-vVFTa --all -q=<quality> --ph -o=<output> -d=<downloader> --ext=<extension> -f=<format_id> ...] URL...
     print(arguments)
@@ -94,3 +94,8 @@ if __name__ == '__main__':
         ydl.video_download_wizard(extension=extension, selected_format=selected_format)
 
     ydl.run(simulate=simulate)
+
+
+if __name__ == '__main__':
+    main()
+
