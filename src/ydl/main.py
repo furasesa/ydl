@@ -54,9 +54,9 @@ class VidDownloader:
 
             self.queue_downloads.append({'url': url, 'formats': format_choose})
 
-    def video_download_wizard(self, extension=None, selected_format=None):
+    def video_download_wizard(self, extension, selected_format):
+        logging.debug('video download wizard, ext: {} selected_format: {}'.format(extension, selected_format))
         # default mode
-        # print('\nvideo formats\n',video_formats)
         if extension is not None:
             self.ydl.set_postprocessors({
                 'key': 'FFmpegVideoConvertor',
@@ -67,7 +67,7 @@ class VidDownloader:
             title = fmts.get('title')
             formats = fmts.get('format_selector')
 
-            if selected_format is not None:
+            if len(selected_format) > 0:
                 format_choose = selected_format
             else:
                 selected_list = checkboxlist_dialog(

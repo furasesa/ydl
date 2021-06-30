@@ -56,7 +56,6 @@ from .main import VidDownloader
 
 def main():
     arguments = docopt(__doc__, version='ydl 0.0.2')
-    # ydl[-vVFTa --all -q=<quality> --ph -o=<output> -d=<downloader> --ext=<extension> -f=<format_id> ...] URL...
 
     # Get Arguments data
     is_verbose = arguments.get('--verbose')
@@ -88,17 +87,14 @@ def main():
     # get list format
     if get_list_format:
         ydl.print_available_formats()
-    # --ph options implementation
+    # --p or -o options implementation
+    # since logic 'or' handled by docopt, no need to use if else
     if phone_tmpl:
         ydl.termux_tmpl()
-    elif out_tmpl:
+    if out_tmpl:
         ydl.output_tmpl(out_tmpl)
-    else:
-        pass
-
     if ext_downloader:
         ydl.use_external_downloader(ext_downloader)
-
     if is_all_format:
         ydl.all_format_wizard()
     elif is_audio_only:
@@ -106,6 +102,7 @@ def main():
         quality = str(quality) if quality is not None else '1'
         ydl.audio_only_downloads(acodec=extension, quality=quality)
     else:
+        # wizard download
         ydl.video_download_wizard(extension=extension, selected_format=selected_format)
 
     ydl.run(simulate=simulate)
