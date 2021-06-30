@@ -9,6 +9,7 @@ class VidDownloader:
         self.ydl = Downloader()
         self.ctm = ContextManager()
         self.ctm.generate_info(url)
+        self.url = url
         # get known format_id
         self.webm_video_list = self.ctm.get_webm_video_list()
         self.mp4_video_list = self.ctm.get_mp4_video_list()
@@ -16,18 +17,23 @@ class VidDownloader:
         self.queue_downloads = []
 
     def use_external_downloader(self, downloader):
+        logging.debug('use external downloader : {}'.format(downloader))
         self.ydl.set_config('external_downloader', downloader)
 
     def termux_tmpl(self):
+        logging.debug('outtmpl: ~/storage/downloads/youtube-dl/%(title)s.%(ext)s')
         self.ydl.set_config('outtmpl', '~/storage/downloads/youtube-dl/%(title)s.%(ext)s')
 
     def output_tmpl(self, out_tmpl):
+        logging.debug('outtmpl: {}'.format(out_tmpl))
         self.ydl.set_config('outtmpl', out_tmpl)
 
     def print_available_formats(self):
+        logging.debug('print available formats')
         self.ctm.print_all_format()
 
     def all_format_wizard(self):
+        logging.debug('get all available formats on url: {}'.format(self.url))
         for fmts in self.ctm.get_all_formats():
             url = fmts.get('url')
             title = fmts.get('title')

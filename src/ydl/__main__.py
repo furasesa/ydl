@@ -1,6 +1,7 @@
 """
 usage:
 ydl [-V]
+ydl [-vF] URL...
 ydl [-v --ph  -o=<output> -d=<downloader> --ext=<extension> -f=<format_id>...] URL...
 ydl [-va --all -q=<quality> --ph -o=<output> -d=<downloader> --ext=<extension>] URL...
 ydl [-vVFTa --all -q=<quality> --ph  -o=<output> -d=<downloader> --ext=<extension> -f=<format_id>... ] URL...
@@ -56,7 +57,6 @@ from .main import VidDownloader
 def main():
     arguments = docopt(__doc__, version='ydl 0.0.2')
     # ydl[-vVFTa --all -q=<quality> --ph -o=<output> -d=<downloader> --ext=<extension> -f=<format_id> ...] URL...
-    print(arguments)
 
     # Get Arguments data
     is_verbose = arguments.get('--verbose')
@@ -81,10 +81,23 @@ def main():
     # insert config
     logging.config.dictConfig(LOG_CONFIG)
     # test logging
-    logging.debug('test file writer debug')
-    logging.info('test info console')
+    logging.debug(arguments)
 
+    # init class
     ydl = VidDownloader(url_list)
+    # get list format
+    if get_list_format:
+        ydl.print_available_formats()
+    # --ph options implementation
+    if phone_tmpl:
+        ydl.termux_tmpl()
+    elif out_tmpl:
+        ydl.output_tmpl(out_tmpl)
+    else:
+        pass
+
+    if ext_downloader:
+        ydl.use_external_downloader(ext_downloader)
 
     if is_all_format:
         ydl.all_format_wizard()
@@ -92,6 +105,8 @@ def main():
         ydl.audio_only_downloads(acodec=extension, quality=quality)
     else:
         ydl.video_download_wizard(extension=extension, selected_format=selected_format)
+
+
 
     ydl.run(simulate=simulate)
 
