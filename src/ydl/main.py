@@ -79,7 +79,7 @@ class VidDownloader:
             logging.debug('format choose: {}'.format(format_choose))
             self.queue_downloads.append({'url': url, 'formats': format_choose})
 
-    def audio_only_downloads(self, acodec='mp3', quality=1):
+    def audio_only_downloads(self, acodec, quality):
         self.ydl.set_postprocessors(
             {
                 'key': 'FFmpegExtractAudio',
