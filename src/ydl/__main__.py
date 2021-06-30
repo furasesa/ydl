@@ -14,35 +14,34 @@ options:
 -a                  Download Audio Only. default selected format is 251
 --all               Get all available format. use wizard instead of '-f'
 -q=<quality>        Set audio quality. 0 is best. 160k is set for bitrates
--f=<format_id>      Download specified format id. is list format. For example:
-                    '-f 137+140 -f 247+251' to download mp4 and webm videos
--o=<output>         doc: https://github.com/ytdl-org/youtube-dl/blob/master/README.md#output-template
-                    id (string): Video identifier
+-f=<format_id>      Download specified format id. is list format.
+                    For example: '-f 137+140 -f 247+251'
+                    to download mp4 and webm videos
+-o=<output>         id (string): Video identifier
                     title (string): Video title
                     url (string): Video URL
                     ext (string): Video filename extension
                     alt_title (string): A secondary title of the video
                     uploader (string): Full name of the video uploader
                     creator (string): The creator of the video
-                    release_date (string): The date (YYYYMMDD) when the video was released
-                    timestamp (numeric): UNIX timestamp of the moment the video became available
+                    release_date (string): The date (YYYYMMDD)
+                    timestamp (numeric): UNIX timestamp
                     upload_date (string): Video upload date (YYYYMMDD)
-                    channel (string): Full name of the channel the video is uploaded on
-                    location (string): Physical location where the video was filmed
+                    channel (string): Full name of the channel
                     duration (numeric): Length of the video in seconds
-                    view_count (numeric): How many users have watched the video on the platform
-                    like_count (numeric): Number of positive ratings of the video
-                    dislike_count (numeric): Number of negative ratings of the video
-                    format (string): A human-readable description of the format
-                    format_id (string): Format code specified by --format
+                    view_count (numeric): How many viewer
+                    like_count (numeric): Number of positive ratings
+                    dislike_count (numeric): Number of negative ratings
+                    format (string): A human-readable formats
+                    format_id (string): Format code specified
                     example:
                     '-o %(title)s-%(id)s.%(ext)s'
 -d=<downloader>     External downloader [default: aria2c]
 --ph                Phone output template. useful for termux
                     output template will be like this
                     '~/storage/downloads/youtube-dl/%(title)s.%(ext)s'
---ext=<extension>   Defined output extension
-                    Send FFMPEG post-processors to convert specified extension
+--ext=<extension>   Defined output extension. Send FFMPEG post-processors
+                    to convert specified extension
 
 """
 
