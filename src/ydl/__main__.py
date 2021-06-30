@@ -1,13 +1,14 @@
 """
 usage:
 ydl [-V]
-ydl [-vF] URL...
-ydl [-v --ph  -o=<output> -d=<downloader> --ext=<extension> -f=<format_id>...] URL...
-ydl [-va --all -q=<quality> --ph -o=<output> -d=<downloader> --ext=<extension>] URL...
-ydl [-vVFTa --all -q=<quality> --ph  -o=<output> -d=<downloader> --ext=<extension> -f=<format_id>... ] URL...
+ydl [-vVF] URL...
+ydl [-p | -o=<output>] [-vd=<downloader> --ext=<extension> -f=<format_id>...] URL...
+ydl [-p | -o=<output>] [-vTa -q=<quality> -d=<downloader> --ext=<extension>] URL...
+ydl [-p | -o=<output>] [-vVT --all -q=<quality> -d=<downloader> --ext=<extension> -f=<format_id>... ] URL...
 
 options:
 -h --help           Print help
+-V --version        Print Version
 -v --verbose        Enable verbose
 -F                  Print Format list
 -T --test           Simulate output command. for test only
@@ -37,7 +38,7 @@ options:
                     example:
                     '-o %(title)s-%(id)s.%(ext)s'
 -d=<downloader>     External downloader [default: aria2c]
---ph                Phone output template. useful for termux
+-p --phone          Phone output template. useful for termux
                     output template will be like this
                     '~/storage/downloads/youtube-dl/%(title)s.%(ext)s'
 --ext=<extension>   Defined output extension. Send FFMPEG post-processors
@@ -66,7 +67,7 @@ def main():
     quality = arguments.get('-q')
 
     is_all_format = arguments.get('--all')
-    phone_tmpl = arguments.get('--ph')
+    phone_tmpl = arguments.get('--phone')
     out_tmpl = arguments.get('-o')
     ext_downloader = arguments.get('-d')
     extension = arguments.get('--ext')
@@ -102,7 +103,7 @@ def main():
         ydl.all_format_wizard()
     elif is_audio_only:
         extension = extension if extension is not None else 'mp3'
-        quality = str(quality) if quality is not None else str(1)
+        quality = str(quality) if quality is not None else '1'
         ydl.audio_only_downloads(acodec=extension, quality=quality)
     else:
         ydl.video_download_wizard(extension=extension, selected_format=selected_format)
